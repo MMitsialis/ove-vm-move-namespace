@@ -1,0 +1,128 @@
+# Quick Start Guide - Move OVE VMs between Namespaces
+
+## Document Metadata
+- **Author**: Marc Mitsialis
+- **Version**: 0.9.0
+- **Last Edit**: 2024/12/10
+- **License**: MIT License
+
+## 5-Minute Setup
+
+### 1. Extract the Toolkit
+```bash
+cd ~/tools
+tar -xzf ove-vm-migration-toolkit-0.9.0.tar.gz
+cd ove-vm-migration-toolkit
+chmod +x scripts/*.sh
+```
+
+### 2. Verify Prerequisites
+```bash
+oc whoami              # Check OpenShift connection
+virtctl version        # Verify virtctl installed
+oc get namespaces      # List available namespaces
+```
+
+### 3. Run the Orchestrator
+```bash
+cd scripts
+./orchestrate-migration.sh
+```
+
+### 4. Follow the Menu
+1. Select option 1: Assess VMs
+2. Select option 2: Create VM list
+3. Edit `vm-migration-list.txt` (add your VM names)
+4. Select option 3: Validate list
+5. Select option 11: Run full migration
+
+## What Gets Installed
+
+```
+ove-vm-migration-toolkit/
+├── README.md                    # Architecture & design
+├── PROCEDURE.md                 # Detailed usage guide
+├── CHANGELOG.md                 # Version history
+├── LICENSE                      # MIT License
+├── VERSION                      # Version number
+├── SEMANTIC_VERSIONING.md      # Version management guide
+├── QUICKSTART.md               # This file
+├── scripts/                    # All migration scripts
+│   ├── orchestrate-migration.sh
+│   ├── assess-vms.sh
+│   ├── create-migration-list.sh
+│   ├── validate-migration-list.sh
+│   ├── stop-vms.sh
+│   ├── clone-pvcs.sh
+│   ├── migrate-resources.sh
+│   ├── recreate-vms.sh
+│   ├── start-and-verify-vms.sh
+│   ├── validate-migration.sh
+│   ├── cleanup-source-vms.sh
+│   └── migration-functions.sh
+└── examples/
+    └── vm-migration-list-example.txt
+```
+
+## First Migration Example
+
+```bash
+# 1. Assess VMs in source namespace
+cd ove-vm-migration-toolkit/scripts
+./assess-vms.sh
+# Enter source: aa-test
+# Enter target: bss-sa-a1-nl
+
+# 2. Navigate to assessment directory
+cd ~/vm-migration/aa-test-to-bss-sa-a1-nl-*/
+
+# 3. Create VM list
+../ove-vm-migration-toolkit/scripts/create-migration-list.sh
+
+# 4. Edit the list
+vi vm-migration-list.txt
+# Add: test-vm-01
+
+# 5. Validate
+../ove-vm-migration-toolkit/scripts/validate-migration-list.sh
+
+# 6. Run migration
+../ove-vm-migration-toolkit/scripts/orchestrate-migration.sh
+# Select option 11: Run full migration
+```
+
+## Common Commands
+
+```bash
+# Check VMs in namespace
+oc get vms -n aa-test
+
+# Check VM status
+oc get vm <vm-name> -n aa-test -o wide
+
+# Check PVCs
+oc get pvc -n aa-test
+
+# Stop a VM manually
+virtctl stop <vm-name> -n aa-test
+
+# Start a VM manually
+virtctl start <vm-name> -n bss-sa-a1-nl
+```
+
+## Getting Help
+
+- Read PROCEDURE.md for detailed instructions
+- Check README.md for architecture details
+- Review CHANGELOG.md for version history
+- See SEMANTIC_VERSIONING.md for version management
+
+## Support
+
+For issues:
+1. Check logs: `oc get events -n <namespace>`
+2. Review PROCEDURE.md troubleshooting section
+3. Contact: Marc Mitsialis
+
+---
+**Version 0.9.0** | MIT License | Assisted by Claude.AI
