@@ -1,19 +1,26 @@
 #!/bin/bash
 ################################################################################
-# Script Name: migration-functions.sh
-# Description: Common functions library for OVE VM migration toolkit
+# Script Name: move-functions.sh
+# Description: Common functions library for OVE VM namespace move toolkit
 # Process: Move OVE VMs between Namespaces
-# Author: Marc Mitsialis
-# Version: 0.9.0
-# Last Edit: 2024/12/10
+# Authors: Marc Mitsialis
+# Version: 0.10.0
+# Last Edit: 2025/12/11
 # License: MIT License
 # Development Assistance: Claude.AI (Anthropic)
 #
-# Usage: source migration-functions.sh
+# Changelog:
+#   0.10.0 (2025/12/11) - Renamed from migration-functions.sh to move-functions.sh
+#                       - Changed terminology from "migration" to "move"
+#                       - Changed "Author" to "Authors" in metadata
+#                       - Added Changelog section to header
+#   0.9.0 (2024/12/10)  - Initial release
+#
+# Usage: source move-functions.sh
 #
 # Purpose:
 #   Provides reusable functions for namespace configuration management,
-#   VM list parsing, and common utilities used across all migration scripts.
+#   VM list parsing, and common utilities used across all VM namespace move scripts.
 #
 # References:
 #   - OpenShift Virtualization: https://docs.openshift.com/container-platform/latest/virt/
@@ -92,10 +99,10 @@ get_namespace_config() {
 # Function to read and parse VM list file
 # Filters out comments and empty lines
 # Parameters:
-#   $1 - Path to VM list file (default: vm-migration-list-validated.txt)
+#   $1 - Path to VM list file (default: vm-move-list-validated.txt)
 # Returns: Prints VM names one per line, returns 1 if file not found
 get_vm_list() {
-    local list_file="${1:-vm-migration-list-validated.txt}"
+    local list_file="${1:-vm-move-list-validated.txt}"
     
     if [ ! -f "$list_file" ]; then
         echo "ERROR: VM list file not found: $list_file" >&2
@@ -123,5 +130,5 @@ export -f get_namespace_config
 export -f get_vm_list
 
 ################################################################################
-# End of migration-functions.sh
+# End of move-functions.sh
 ################################################################################

@@ -1,25 +1,34 @@
 #!/bin/bash
 ################################################################################
-# Script Name: migrate-resources.sh
-# Description: Migrate ConfigMaps, Secrets, Services
+# Script Name: move-resources.sh
+# Description: Move ConfigMaps, Secrets, Services between namespaces
 # Process: Move OVE VMs between Namespaces
-# Author: Marc Mitsialis
-# Version: 0.9.0
-# Last Edit: 2024/12/10
+# Authors: Marc Mitsialis
+# Version: 0.10.0
+# Last Edit: 2025/12/11
 # License: MIT License
+#
+# Changelog:
+#   0.10.0 (2025/12/11) - Renamed from migrate-resources.sh to move-resources.sh
+#                       - Changed terminology from "migration" to "move"
+#                       - Changed "Author" to "Authors" in metadata
+#                       - Added Changelog section to header
+#                       - Updated reference to move-functions.sh
+#                       - Updated reference to vm-move-list-validated.txt
+#   0.9.0 (2024/12/10)  - Initial release
 ################################################################################
 
 set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/migration-functions.sh" || source migration-functions.sh
+source "$SCRIPT_DIR/move-functions.sh" || source move-functions.sh
 
-echo "=== Migrate Dependent Resources ==="
+echo "=== Move Dependent Resources ==="
 get_namespace_config || exit 1
 
-VM_LIST="vm-migration-list-validated.txt"
+VM_LIST="vm-move-list-validated.txt"
 [ ! -f "$VM_LIST" ] && echo "ERROR: $VM_LIST not found" && exit 1
 
-read -p "Proceed with resource migration? (yes/no): " confirm
+read -p "Proceed with resource move? (yes/no): " confirm
 [ "$confirm" != "yes" ] && echo "Aborted" && exit 0
 
 mapfile -t VMS_TO_MIGRATE < <(get_vm_list "$VM_LIST")

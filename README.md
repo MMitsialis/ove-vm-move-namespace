@@ -3,9 +3,9 @@
 ## Document Metadata
 
 - **Process Name**: Move OVE VMs between Namespaces
-- **Author**: Marc Mitsialis
+- **Authors**: Marc Mitsialis
 - **Version**: 0.9.0
-- **Last Edit**: 2024/12/10
+- **Last Edit**: 2025/12/11
 - **License**: MIT License
 - **Development Assistance**: Claude.AI (Anthropic)
 - **Target Platform**: OpenShift Virtualization (OVE) on Dell PowerFlex
@@ -102,7 +102,7 @@ The toolkit handles these in the correct order:
          │
          ↓
 ┌─────────────────┐
-│  VM Selection   │ ← Create explicit migration list
+│  VM Selection   │ ← Create explicit move list
 └────────┬────────┘
          │
          ↓
@@ -150,7 +150,7 @@ The toolkit handles these in the correct order:
 
 ### Core Scripts
 
-1. **migration-functions.sh**
+1. **move-functions.sh**
    - Library of common functions
    - Namespace configuration management
    - VM list parsing utilities
@@ -162,12 +162,12 @@ The toolkit handles these in the correct order:
    - Identifies dependencies
    - Exports VM definitions for analysis
 
-3. **create-migration-list.sh**
+3. **create-move-list.sh**
    - Generates template for VM selection
    - Lists available VMs
    - Creates editable migration manifest
 
-4. **validate-migration-list.sh**
+4. **validate-move-list.sh**
    - Verifies VM existence
    - Checks VM accessibility
    - Creates validated VM list for migration
@@ -182,7 +182,7 @@ The toolkit handles these in the correct order:
    - Monitors cloning progress
    - Verifies PVC binding in target namespace
 
-7. **migrate-resources.sh**
+7. **move-resources.sh**
    - Migrates ConfigMaps
    - Migrates Secrets (excluding service accounts)
    - Migrates Services
@@ -198,7 +198,7 @@ The toolkit handles these in the correct order:
    - Monitors startup progress
    - Reports IP addresses and node placement
 
-10. **validate-migration.sh**
+10. **validate-move.sh**
     - Comprehensive post-migration validation
     - Compares source and target states
     - Generates detailed validation report
@@ -208,7 +208,7 @@ The toolkit handles these in the correct order:
     - Deletes associated PVCs and DataVolumes
     - Requires explicit confirmation
 
-12. **orchestrate-migration.sh**
+12. **orchestrate-move.sh**
     - Master control script
     - Menu-driven interface
     - Sequential or full-pipeline execution
@@ -276,7 +276,7 @@ This toolkit follows [Semantic Versioning 2.0.0](https://semver.org/):
 - **MINOR** (9): New features, additional scripts, enhanced functionality
 - **PATCH** (0): Bug fixes, documentation updates, non-breaking improvements
 
-### Current Version: 0.9.0
+### Current Version: 0.10.0
 
 The `0.x.x` major version indicates pre-release status. Key considerations:
 

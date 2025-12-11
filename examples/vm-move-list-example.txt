@@ -1,7 +1,7 @@
-# Example VM Migration List
+# Example VM Namespace Move List
 # Process: Move OVE VMs between Namespaces
-# Author: Marc Mitsialis
-# Version: 0.9.0
+# Authors: Marc Mitsialis
+# Version: 0.10.0
 
 # Instructions:
 # - Add one VM name per line (no quotes)

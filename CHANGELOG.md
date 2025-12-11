@@ -3,12 +3,12 @@
 ## Document Metadata
 
 - **Process Name**: Move OVE VMs between Namespaces
-- **Author**: Marc Mitsialis
-- **Version**: 0.9.0
-- **Last Edit**: 2024/12/10
+- **Authors**: Marc Mitsialis
+- **Version**: 0.10.0
+- **Last Edit**: 2025/12/11
 - **License**: MIT License
 
-All notable changes to the OVE VM Migration Toolkit will be documented in this file.
+All notable changes to the OVE VM Namespace Move Toolkit will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -22,6 +22,64 @@ Given a version number MAJOR.MINOR.PATCH:
 - **PATCH** version: Backwards-compatible bug fixes
 
 **Pre-release** versions (0.x.x) indicate the toolkit is under active development and interfaces may change.
+
+## [0.10.0] - 2025-12-11
+
+### Changed
+
+**Terminology Update**
+- **BREAKING**: Changed all terminology from "migration" to "move" to distinguish from VMware-to-OVE migration
+- Renamed toolkit from "OVE VM Migration Toolkit" to "OVE VM Namespace Move Toolkit"
+- This change addresses ambiguity with active VMware to OpenShift migration projects
+
+**File Renames**
+- `orchestrate-migration.sh` → `orchestrate-move.sh`
+- `migration-functions.sh` → `move-functions.sh`
+- `create-migration-list.sh` → `create-move-list.sh`
+- `validate-migration-list.sh` → `validate-move-list.sh`
+- `migrate-resources.sh` → `move-resources.sh`
+- `validate-migration.sh` → `validate-move.sh`
+- `vm-migration-list*.txt` → `vm-move-list*.txt`
+- `migration-validation-report` → `move-validation-report`
+
+**Metadata Updates**
+- Changed "Author" field to "Authors" across all files to support group authorship
+- Added Changelog section to all script headers
+- Updated all dates from 2024/12/10 to 2025/12/11
+- Updated version from 0.9.0 to 0.10.0
+
+**Documentation Updates**
+- Updated all documentation files (README, PROCEDURE, QUICKSTART, etc.)
+- Updated CLAUDE.md with new project context and changelog
+- Updated all script comments and echo messages
+- Changed menu options in orchestrate-move.sh
+
+### Migration Guide
+
+**For users upgrading from 0.9.0:**
+
+1. **Update Script Names**
+   ```bash
+   # Old way:
+   ./orchestrate-migration.sh
+
+   # New way:
+   ./orchestrate-move.sh
+   ```
+
+2. **Update File References**
+   - Rename `vm-migration-list.txt` → `vm-move-list.txt`
+   - Rename `vm-migration-list-validated.txt` → `vm-move-list-validated.txt`
+
+3. **Update Any Custom Scripts**
+   - Change `source migration-functions.sh` → `source move-functions.sh`
+   - Update any references to script filenames
+
+4. **Impact**: This is a MINOR version change (not MAJOR) because:
+   - Core functionality unchanged
+   - Same workflow and process
+   - Only naming and terminology changed
+   - No breaking changes to actual VM operations
 
 ## [0.9.0] - 2024-12-10
 
@@ -39,18 +97,18 @@ Given a version number MAJOR.MINOR.PATCH:
 - Safe cleanup procedures with confirmation prompts
 
 **Scripts Included**
-- `migration-functions.sh` - Common function library
+- `move-functions.sh` - Common function library
 - `assess-vms.sh` - VM discovery and assessment
-- `create-migration-list.sh` - VM selection interface
-- `validate-migration-list.sh` - Pre-migration validation
+- `create-move-list.sh` - VM selection interface
+- `validate-move-list.sh` - Pre-migration validation
 - `stop-vms.sh` - Graceful VM shutdown
 - `clone-pvcs.sh` - Storage cloning with progress monitoring
-- `migrate-resources.sh` - Dependent resource migration
+- `move-resources.sh` - Dependent resource migration
 - `recreate-vms.sh` - VM recreation in target namespace
 - `start-and-verify-vms.sh` - VM startup and monitoring
-- `validate-migration.sh` - Post-migration validation
+- `validate-move.sh` - Post-migration validation
 - `cleanup-source-vms.sh` - Source namespace cleanup
-- `orchestrate-migration.sh` - Master control script
+- `orchestrate-move.sh` - Master control script
 
 **Documentation**
 - README.md - Architecture, design principles, technical details

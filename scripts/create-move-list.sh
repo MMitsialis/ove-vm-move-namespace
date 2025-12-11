@@ -1,17 +1,24 @@
 #!/bin/bash
 ################################################################################
-# Script Name: create-migration-list.sh
-# Description: Create VM migration list template
+# Script Name: create-move-list.sh
+# Description: Create VM namespace move list template
 # Process: Move OVE VMs between Namespaces
-# Author: Marc Mitsialis
-# Version: 0.9.0
-# Last Edit: 2024/12/10
+# Authors: Marc Mitsialis
+# Version: 0.10.0
+# Last Edit: 2025/12/11
 # License: MIT License
 # Development Assistance: Claude.AI (Anthropic)
+#
+# Changelog:
+#   0.10.0 (2025/12/11) - Renamed from create-migration-list.sh to create-move-list.sh
+#                       - Changed terminology from "migration" to "move"
+#                       - Changed "Author" to "Authors" in metadata
+#                       - Added Changelog section to header
+#   0.9.0 (2024/12/10)  - Initial release
 ################################################################################
 
 
-echo "=== Create VM Migration List ==="
+echo "=== Create VM Namespace Move List ==="
 echo ""
 
 # Check for namespace config

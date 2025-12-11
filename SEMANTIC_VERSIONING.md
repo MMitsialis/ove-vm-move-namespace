@@ -4,9 +4,9 @@
 
 - **Process Name**: Move OVE VMs between Namespaces
 - **Document Type**: Semantic Versioning Guide
-- **Author**: Marc Mitsialis
+- **Authors**: Marc Mitsialis
 - **Version**: 0.9.0
-- **Last Edit**: 2024/12/10
+- **Last Edit**: 2025/12/11
 - **License**: MIT License
 
 ## Overview
@@ -83,8 +83,8 @@ The major version `0` indicates this toolkit is in **pre-release/development** s
 3. **File Format Changes**
    ```bash
    # BREAKING: Changed VM list format
-   Old: vm-migration-list.txt (plain list)
-   New: vm-migration-list.json (JSON format)
+   Old: vm-move-list.txt (plain list)
+   New: vm-move-list.json (JSON format)
    Version: 1.0.0 → 2.0.0
    ```
 
@@ -272,7 +272,7 @@ After 1.0.0 release:
 
 **Change**:
 ```bash
-# Replace vm-migration-list.txt with vm-migration-list.json
+# Replace vm-move-list.txt with vm-move-list.json
 # Old format: text file with VM names
 # New format: JSON with VM names and options
 ```
@@ -294,7 +294,7 @@ After 1.0.0 release:
 ### Migration Path
 ```bash
 # Convert old format to new format
-./tools/convert-vm-list.sh vm-migration-list.txt > vm-migration-list.json
+./tools/convert-vm-list.sh vm-move-list.txt > vm-move-list.json
 ```
 ```
 
@@ -383,7 +383,7 @@ git push origin v1.1.0
 
 ## Upgrade Instructions
 1. Extract new tarball
-2. Run `./scripts/orchestrate-migration.sh`
+2. Run `./scripts/orchestrate-move.sh`
 3. No configuration changes required
 
 ## Breaking Changes

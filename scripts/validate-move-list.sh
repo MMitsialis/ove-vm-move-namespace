@@ -1,27 +1,35 @@
 #!/bin/bash
 ################################################################################
-# Script Name: validate-migration-list.sh
-# Description: Validate VM migration list
+# Script Name: validate-move-list.sh
+# Description: Validate VM namespace move list
 # Process: Move OVE VMs between Namespaces
-# Author: Marc Mitsialis
-# Version: 0.9.0
-# Last Edit: 2024/12/10
+# Authors: Marc Mitsialis
+# Version: 0.10.0
+# Last Edit: 2025/12/11
 # License: MIT License
 # Development Assistance: Claude.AI (Anthropic)
+#
+# Changelog:
+#   0.10.0 (2025/12/11) - Renamed from validate-migration-list.sh to validate-move-list.sh
+#                       - Changed terminology from "migration" to "move"
+#                       - Changed "Author" to "Authors" in metadata
+#                       - Added Changelog section to header
+#                       - Updated reference to move-functions.sh
+#   0.9.0 (2024/12/10)  - Initial release
 ################################################################################
 
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [ -f "$SCRIPT_DIR/migration-functions.sh" ]; then
-    source "$SCRIPT_DIR/migration-functions.sh"
-elif [ -f "migration-functions.sh" ]; then
-    source migration-functions.sh
+if [ -f "$SCRIPT_DIR/move-functions.sh" ]; then
+    source "$SCRIPT_DIR/move-functions.sh"
+elif [ -f "move-functions.sh" ]; then
+    source move-functions.sh
 else
-    echo "ERROR: migration-functions.sh not found"
+    echo "ERROR: move-functions.sh not found"
     exit 1
 fi
 
-echo "=== Validate VM Migration List ==="
+echo "=== Validate VM Namespace Move List ==="
 echo ""
 
 if [ -f "namespace-config.txt" ]; then

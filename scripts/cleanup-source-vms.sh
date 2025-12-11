@@ -1,22 +1,30 @@
 #!/bin/bash
 ################################################################################
 # Script Name: cleanup-source-vms.sh
-# Description: Remove migrated VMs from source namespace
+# Description: Remove moved VMs from source namespace
 # Process: Move OVE VMs between Namespaces
-# Author: Marc Mitsialis
-# Version: 0.9.0
-# Last Edit: 2024/12/10
+# Authors: Marc Mitsialis
+# Version: 0.10.0
+# Last Edit: 2025/12/11
 # License: MIT License
+#
+# Changelog:
+#   0.10.0 (2025/12/11) - Changed terminology from "migration" to "move"
+#                       - Changed "Author" to "Authors" in metadata
+#                       - Added Changelog section to header
+#                       - Updated reference to move-functions.sh
+#                       - Updated reference to vm-move-list-validated.txt
+#   0.9.0 (2024/12/10)  - Initial release
 ################################################################################
 
 set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/migration-functions.sh" || source migration-functions.sh
+source "$SCRIPT_DIR/move-functions.sh" || source move-functions.sh
 
 echo "=== CLEANUP WARNING ==="
 get_namespace_config || exit 1
 
-VM_LIST="vm-migration-list-validated.txt"
+VM_LIST="vm-move-list-validated.txt"
 [ ! -f "$VM_LIST" ] && echo "ERROR: $VM_LIST not found" && exit 1
 
 echo ""

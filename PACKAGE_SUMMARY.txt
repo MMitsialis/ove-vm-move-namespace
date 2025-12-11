@@ -1,10 +1,10 @@
 ================================================================================
-OVE VM Migration Toolkit v0.9.0 - Package Summary
+OVE VM Namespace Move Toolkit v0.10.0 - Package Summary
 ================================================================================
 
-Author: Marc Mitsialis
-Version: 0.9.0
-Date: 2024/12/10
+Authors: Marc Mitsialis
+Version: 0.10.0
+Date: 2025/12/11
 License: MIT License
 Assistance: Claude.AI (Anthropic)
 
@@ -12,7 +12,7 @@ Assistance: Claude.AI (Anthropic)
 PACKAGE CONTENTS
 ================================================================================
 
-TARBALL: ove-vm-migration-toolkit-0.9.0.tar.gz (25 KB)
+TARBALL: ove-vm-move-toolkit-0.9.0.tar.gz (25 KB)
 
 DOCUMENTATION (5 files):
   ✓ README.md (16 KB) - Complete architectural overview and design principles
@@ -22,31 +22,31 @@ DOCUMENTATION (5 files):
   ✓ SEMANTIC_VERSIONING.md (11 KB) - Version management guide
 
 SCRIPTS (12 files):
-  ✓ orchestrate-migration.sh - Master control script (menu-driven)
-  ✓ migration-functions.sh - Common function library
+  ✓ orchestrate-move.sh - Master control script (menu-driven)
+  ✓ move-functions.sh - Common function library
   ✓ assess-vms.sh - VM discovery and assessment
-  ✓ create-migration-list.sh - VM selection interface
-  ✓ validate-migration-list.sh - Pre-migration validation
+  ✓ create-move-list.sh - VM selection interface
+  ✓ validate-move-list.sh - Pre-migration validation
   ✓ stop-vms.sh - Graceful VM shutdown
   ✓ clone-pvcs.sh - PVC cloning with progress monitoring
-  ✓ migrate-resources.sh - ConfigMap/Secret/Service migration
+  ✓ move-resources.sh - ConfigMap/Secret/Service migration
   ✓ recreate-vms.sh - VM recreation in target namespace
   ✓ start-and-verify-vms.sh - VM startup and verification
-  ✓ validate-migration.sh - Post-migration validation report
+  ✓ validate-move.sh - Post-migration validation report
   ✓ cleanup-source-vms.sh - Source namespace cleanup
 
 SUPPORTING FILES:
   ✓ LICENSE - MIT License full text
   ✓ VERSION - Version tracking (0.9.0)
-  ✓ examples/vm-migration-list-example.txt - Template
+  ✓ examples/vm-move-list-example.txt - Template
 
 ================================================================================
 QUICK START
 ================================================================================
 
 1. EXTRACT
-   tar -xzf ove-vm-migration-toolkit-0.9.0.tar.gz
-   cd ove-vm-migration-toolkit
+   tar -xzf ove-vm-move-toolkit-0.9.0.tar.gz
+   cd ove-vm-move-toolkit
 
 2. SETUP
    chmod +x scripts/*.sh
@@ -57,14 +57,14 @@ QUICK START
 
 4. RUN
    cd scripts
-   ./orchestrate-migration.sh
+   ./orchestrate-move.sh
 
 5. FOLLOW MENU
    - Option 1: Assess VMs
-   - Option 2: Create migration list
-   - Edit vm-migration-list.txt
+   - Option 2: Create move list
+   - Edit vm-move-list.txt
    - Option 3: Validate list
-   - Option 11: Run full migration
+   - Option 11: Run full move
 
 ================================================================================
 DOCUMENTATION READING ORDER
@@ -146,9 +146,9 @@ METADATA IN ALL FILES
 ================================================================================
 
 Every script and document includes:
-  ✓ Author: Marc Mitsialis
-  ✓ Version: 0.9.0
-  ✓ Last Edit: 2024/12/10
+  ✓ Authors: Marc Mitsialis
+  ✓ Version: 0.10.0
+  ✓ Last Edit: 2025/12/11
   ✓ License: MIT License
   ✓ Development Assistance: Claude.AI (Anthropic)
 
@@ -165,8 +165,8 @@ TEAM DISTRIBUTION:
 VERSION CONTROL:
   git init
   git add .
-  git commit -m "OVE VM Migration Toolkit v0.9.0"
-  git tag -a v0.9.0 -m "Initial release"
+  git commit -m "OVE VM Namespace Move Toolkit v0.10.0"
+  git tag -a v0.10.0 -m "Initial release"
 
 UPDATES:
   - Check CHANGELOG.md for new versions

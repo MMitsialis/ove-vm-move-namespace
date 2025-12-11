@@ -1,29 +1,36 @@
 #!/bin/bash
 ################################################################################
 # Script Name: stop-vms.sh
-# Description: Stop VMs for migration
+# Description: Stop VMs for namespace move
 # Process: Move OVE VMs between Namespaces
-# Author: Marc Mitsialis
-# Version: 0.9.0
-# Last Edit: 2024/12/10
+# Authors: Marc Mitsialis
+# Version: 0.10.0
+# Last Edit: 2025/12/11
 # License: MIT License
 # Development Assistance: Claude.AI (Anthropic)
+#
+# Changelog:
+#   0.10.0 (2025/12/11) - Changed terminology from "migration" to "move"
+#                       - Changed "Author" to "Authors" in metadata
+#                       - Added Changelog section to header
+#                       - Updated reference to move-functions.sh
+#   0.9.0 (2024/12/10)  - Initial release
 ################################################################################
 
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [ -f "$SCRIPT_DIR/migration-functions.sh" ]; then
-    source "$SCRIPT_DIR/migration-functions.sh"
-elif [ -f "migration-functions.sh" ]; then
-    source migration-functions.sh
+if [ -f "$SCRIPT_DIR/move-functions.sh" ]; then
+    source "$SCRIPT_DIR/move-functions.sh"
+elif [ -f "move-functions.sh" ]; then
+    source move-functions.sh
 else
-    echo "ERROR: migration-functions.sh not found"
+    echo "ERROR: move-functions.sh not found"
     exit 1
 fi
 
-echo "=== Stop VMs for Migration ==="
+echo "=== Stop VMs for Namespace Move ==="
 echo ""
 
 get_namespace_config || exit 1

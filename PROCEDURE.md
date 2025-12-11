@@ -4,9 +4,9 @@
 
 - **Process Name**: Move OVE VMs between Namespaces
 - **Document Type**: Usage Procedure
-- **Author**: Marc Mitsialis
+- **Authors**: Marc Mitsialis
 - **Version**: 0.9.0
-- **Last Edit**: 2024/12/10
+- **Last Edit**: 2025/12/11
 - **License**: MIT License
 - **Development Assistance**: Claude.AI (Anthropic)
 
@@ -72,10 +72,10 @@ You must have the following permissions:
 cd ~/tools
 
 # Extract the tarball
-tar -xzf ove-vm-migration-toolkit-0.9.0.tar.gz
+tar -xzf ove-vm-move-toolkit-0.9.0.tar.gz
 
 # Navigate into the toolkit directory
-cd ove-vm-migration-toolkit
+cd ove-vm-move-toolkit
 
 # Verify contents
 ls -la
@@ -83,27 +83,27 @@ ls -la
 
 Expected contents:
 ```
-ove-vm-migration-toolkit/
+ove-vm-move-toolkit/
 ├── README.md                      # Overview and architecture
 ├── PROCEDURE.md                   # This file
 ├── CHANGELOG.md                   # Version history
 ├── LICENSE                        # MIT License text
 ├── VERSION                        # Version number
 ├── scripts/
-│   ├── migration-functions.sh     # Common library
+│   ├── move-functions.sh     # Common library
 │   ├── assess-vms.sh             # Discovery
-│   ├── create-migration-list.sh  # VM selection
-│   ├── validate-migration-list.sh # Validation
+│   ├── create-move-list.sh  # VM selection
+│   ├── validate-move-list.sh # Validation
 │   ├── stop-vms.sh               # Stop VMs
 │   ├── clone-pvcs.sh             # Clone storage
-│   ├── migrate-resources.sh      # Migrate configs
+│   ├── move-resources.sh      # Migrate configs
 │   ├── recreate-vms.sh           # Recreate VMs
 │   ├── start-and-verify-vms.sh   # Start VMs
-│   ├── validate-migration.sh     # Validation
+│   ├── validate-move.sh     # Validation
 │   ├── cleanup-source-vms.sh     # Cleanup
-│   └── orchestrate-migration.sh  # Master script
+│   └── orchestrate-move.sh  # Master script
 └── examples/
-    └── vm-migration-list-example.txt
+    └── vm-move-list-example.txt
 ```
 
 ### Step 2: Make Scripts Executable
@@ -129,10 +129,10 @@ For experienced users who want to run the full migration quickly:
 
 ```bash
 # 1. Navigate to scripts directory
-cd ove-vm-migration-toolkit/scripts
+cd ove-vm-move-toolkit/scripts
 
 # 2. Run orchestrator
-./orchestrate-migration.sh
+./orchestrate-move.sh
 
 # 3. When prompted, enter namespaces:
 #    Source: aa-test
@@ -140,10 +140,10 @@ cd ove-vm-migration-toolkit/scripts
 
 # 4. Follow menu:
 #    - Option 1: Assess VMs
-#    - Option 2: Create migration list
-#    - Edit vm-migration-list.txt
+#    - Option 2: Create move list
+#    - Edit vm-move-list.txt
 #    - Option 3: Validate list
-#    - Option 11: Run full migration
+#    - Option 11: Run full move
 
 # 5. After validation, run cleanup:
 #    - Option 10: Cleanup source
@@ -156,7 +156,7 @@ cd ove-vm-migration-toolkit/scripts
 #### Step 1: Run VM Assessment
 
 ```bash
-cd ove-vm-migration-toolkit/scripts
+cd ove-vm-move-toolkit/scripts
 ./assess-vms.sh
 ```
 
@@ -187,14 +187,14 @@ Look for:
 
 ```bash
 # Still in ~/vm-migration/aa-test-to-bss-sa-a1-nl-*/
-../ove-vm-migration-toolkit/scripts/create-migration-list.sh
+../ove-vm-move-toolkit/scripts/create-move-list.sh
 ```
 
-This creates `vm-migration-list.txt` template.
+This creates `vm-move-list.txt` template.
 
-**Edit the migration list**:
+**Edit the move list**:
 ```bash
-vi vm-migration-list.txt
+vi vm-move-list.txt
 ```
 
 Add VM names (one per line):
@@ -210,7 +210,7 @@ app-server-prod-03
 #### Step 3: Validate Migration List
 
 ```bash
-../ove-vm-migration-toolkit/scripts/validate-migration-list.sh
+../ove-vm-move-toolkit/scripts/validate-move-list.sh
 ```
 
 **Expected Output**:
@@ -229,7 +229,7 @@ Summary:
 ✓ All VMs validated successfully
 ```
 
-This creates `vm-migration-list-validated.txt` for use in migration.
+This creates `vm-move-list-validated.txt` for use in migration.
 
 ### Phase 2: Pre-Migration Preparation
 
@@ -238,14 +238,14 @@ This creates `vm-migration-list-validated.txt` for use in migration.
 **Important**: This causes downtime. Ensure stakeholders are notified.
 
 ```bash
-../ove-vm-migration-toolkit/scripts/stop-vms.sh
+../ove-vm-move-toolkit/scripts/stop-vms.sh
 ```
 
 **Prompts**:
 ```
 Configuration:
   Source: aa-test
-  VM List: vm-migration-list-validated.txt
+  VM List: vm-move-list-validated.txt
 
 VMs to stop:
   web-server-prod-01
@@ -270,7 +270,7 @@ oc get vmis -n aa-test
 #### Step 5: Clone PVCs
 
 ```bash
-../ove-vm-migration-toolkit/scripts/clone-pvcs.sh
+../ove-vm-move-toolkit/scripts/clone-pvcs.sh
 ```
 
 This script:
@@ -281,7 +281,7 @@ This script:
 
 **Progress Display**:
 ```
-PVC Clone Status - 2024/12/10 14:30:45
+PVC Clone Status - 2025/12/11 14:30:45
 Source: aa-test → Target: bss-sa-a1-nl
 ==========================================
 VM: web-server-prod-01
@@ -314,7 +314,7 @@ All PVCs should show `STATUS: Bound`.
 #### Step 6: Migrate Dependent Resources
 
 ```bash
-../ove-vm-migration-toolkit/scripts/migrate-resources.sh
+../ove-vm-move-toolkit/scripts/move-resources.sh
 ```
 
 This migrates:
@@ -343,7 +343,7 @@ Services:
 #### Step 7: Recreate VMs in Target Namespace
 
 ```bash
-../ove-vm-migration-toolkit/scripts/recreate-vms.sh
+../ove-vm-move-toolkit/scripts/recreate-vms.sh
 ```
 
 This:
@@ -371,7 +371,7 @@ VMs should exist but not be running yet.
 #### Step 8: Start VMs
 
 ```bash
-../ove-vm-migration-toolkit/scripts/start-and-verify-vms.sh
+../ove-vm-move-toolkit/scripts/start-and-verify-vms.sh
 ```
 
 **Confirmation Prompt**:
@@ -386,7 +386,7 @@ Start all VMs in 'bss-sa-a1-nl'? (yes/no): yes
 
 **Real-time Monitoring**:
 ```
-VM Status - 2024/12/10 14:45:23
+VM Status - 2025/12/11 14:45:23
 Target Namespace: bss-sa-a1-nl
 Elapsed: 45s / 300s
 ===========================================
@@ -414,7 +414,7 @@ Wait until all VMs show:
 #### Step 9: Generate Validation Report
 
 ```bash
-../ove-vm-migration-toolkit/scripts/validate-migration.sh
+../ove-vm-move-toolkit/scripts/validate-move.sh
 ```
 
 **Report Contents**:
@@ -422,7 +422,7 @@ Wait until all VMs show:
 === VM Migration Validation Report ===
 Source Namespace: aa-test
 Target Namespace: bss-sa-a1-nl
-Generated: 2024/12/10 14:50:15
+Generated: 2025/12/11 14:50:15
 
 VM: web-server-prod-01
 ✓ Exists in target namespace 'bss-sa-a1-nl'
@@ -489,7 +489,7 @@ curl http://10.128.2.45:80
 **WARNING**: This is destructive and cannot be undone.
 
 ```bash
-../ove-vm-migration-toolkit/scripts/cleanup-source-vms.sh
+../ove-vm-move-toolkit/scripts/cleanup-source-vms.sh
 ```
 
 **Prompts**:
@@ -740,7 +740,7 @@ If problems are discovered before running `cleanup-source-vms.sh`:
    cd ~/vm-migration/aa-test-to-bss-sa-a1-nl-*/
    
    # Start each VM
-   for vm in $(cat vm-migration-list-validated.txt); do
+   for vm in $(cat vm-move-list-validated.txt); do
      echo "Starting $vm in aa-test"
      virtctl start $vm -n aa-test
    done
@@ -810,25 +810,25 @@ If cleanup has already occurred:
 ./assess-vms.sh
 
 # VM Selection
-./create-migration-list.sh
-vi vm-migration-list.txt
-./validate-migration-list.sh
+./create-move-list.sh
+vi vm-move-list.txt
+./validate-move-list.sh
 
 # Migration Execution
 ./stop-vms.sh
 ./clone-pvcs.sh
-./migrate-resources.sh
+./move-resources.sh
 ./recreate-vms.sh
 ./start-and-verify-vms.sh
 
 # Validation
-./validate-migration.sh
+./validate-move.sh
 
 # Cleanup
 ./cleanup-source-vms.sh
 
 # Or use orchestrator for all steps
-./orchestrate-migration.sh
+./orchestrate-move.sh
 ```
 
 ### Manual VM Operations
@@ -895,7 +895,7 @@ When reporting issues, include:
 
 ### Version Information
 
-Current Version: 0.9.0
+Current Version: 0.10.0
 
 Check for updates:
 - Review CHANGELOG.md for version history
